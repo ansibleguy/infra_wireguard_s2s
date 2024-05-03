@@ -100,7 +100,7 @@ Feel free to:
 
 * **Note:** Most of the role's functionality can be opted in or out.
 
-  For all available options - see the default-config located in the main defaults-file!
+  For all available options - see the default-config located in [the main defaults-file](https://github.com/ansibleguy/infra_wireguard/blob/latest/defaults/main/1_main.yml)!
 
 
 * **Warning:** Not every setting/variable you provide will be checked for validity. Bad config might break the role!
