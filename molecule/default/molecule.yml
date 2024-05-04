@@ -9,6 +9,7 @@ _references:
         image: 'ansible0guy/molecule:debian-latest'
         tmpfs: ['/tmp', '/run', '/run/lock']
       privileged: true
+    command: '/sbin/init'
         sysctls:
         'net.ipv4.ip_forward': 1
         'net.ipv4.conf.all.arp_filter': 0
