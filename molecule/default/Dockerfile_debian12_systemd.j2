@@ -1,7 +1,7 @@
 # docker build -t mantest - < ./Dockerfile.j2
 # docker run -it --privileged --name mantest mantest:latest /sbin/init --tmpfs /tmp --tmpfs /run --tmpfs /run/lock
 
-FROM debian:11-slim
+FROM debian:12-slim
 
 ENV container docker
 ENV LC_ALL C

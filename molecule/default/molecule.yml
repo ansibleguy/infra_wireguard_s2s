@@ -7,9 +7,9 @@ _references:
       docker_host: 'tcp://molecule-docker.local:2375'
       # docker_host: 'unix://var/run/docker.sock'  # localhost
       purge_networks: true
-      image: 'debian:11-slim'
+      image: 'debian:12-slim'
       # for docker systemd config see: https://serverfault.com/questions/1053187/systemd-fails-to-run-in-a-docker-container-when-using-cgroupv2-cgroupns-priva
-      dockerfile: 'Dockerfile_debian11_systemd.j2'
+      dockerfile: 'Dockerfile_debian12_systemd.j2'
       build_image: yes
       tmpfs: ['/tmp', '/run', '/run/lock']
       privileged: true
