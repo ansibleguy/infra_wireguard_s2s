@@ -7,13 +7,13 @@
   tasks:
     - name: Installing dependencies
       ansible.builtin.apt:
-        pkg: ['iputils-ping', 'ufw', 'iproute2']
+        pkg: ['iputils-ping', 'ufw']
         state: present
         update_cache: yes
 
     - name: Installing troubleshooting tools
       ansible.builtin.apt:
-        pkg: ['procps', 'net-tools', 'traceroute', 'vim', 'nano', 'tcpdump']
+        pkg: ['traceroute', 'tcpdump']
         state: present
 
     - name: Allowing traffic by ufw

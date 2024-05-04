@@ -6,15 +6,10 @@ _references:
     all: &docker_all
       docker_host: 'tcp://molecule-docker.local:2375'
       # docker_host: 'unix://var/run/docker.sock'  # localhost
-      purge_networks: true
-      image: 'debian:12-slim'
-      # for docker systemd config see: https://serverfault.com/questions/1053187/systemd-fails-to-run-in-a-docker-container-when-using-cgroupv2-cgroupns-priva
-      dockerfile: 'Dockerfile_debian12_systemd.j2'
-      build_image: yes
-      tmpfs: ['/tmp', '/run', '/run/lock']
+        image: 'ansible0guy/molecule:debian-latest'
+        tmpfs: ['/tmp', '/run', '/run/lock']
       privileged: true
-      command: '/sbin/init'
-      sysctls:
+        sysctls:
         'net.ipv4.ip_forward': 1
         'net.ipv4.conf.all.arp_filter': 0
         'net.ipv4.conf.all.rp_filter': 2
