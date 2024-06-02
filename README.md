@@ -38,49 +38,6 @@ python3 -m pip install -r requirements.txt
 
 ----
 
-## Functionality
-
-* **Package installation**
-  * WireGuard
-  * Resolvconf (_name resolution_)
-
-
-* **Configuration**
-  * Simplified configuration by the mapping of **topologies**
-  * **Supported topologies**:
-    * **[single](https://github.com/ansibleguy/infra_wireguard/blob/stable/ExampleSingle.md)** - simply connect two nodes
-    * **[star](https://github.com/ansibleguy/infra_wireguard/blob/stable/ExampleStar.md)** - multiple edge/branch nodes connect to one central hub
-    * **[mesh](https://github.com/ansibleguy/infra_wireguard/blob/stable/ExampleMesh.md)** - connect each of the peers to every other one
-  * **Keys**
-    * Generating public/private key-pairs for each host in a topology (*WG identifies peer by publicKey*)
-    * Keys are written to the controller for consistency
-  * **Routing**
-    * The routing is **up to you to manage**! You could enable the auto-added WG routes or add custom up-/down-scripts.
-
-
-  * **Default config**:
-    * Saving private-key in file
-    * Disabling route auto-adding (*anti-lockout & customization*)
-    * Enabled syslog-logging with instance-identifiers
-    * Restarting wg-service on changes
- 
-
-  * **Default opt-ins**:
-    * Using PSK for additional security
-    * Purging of orphaned tunnels
-
-
-  * **Default opt-outs**:
-    * Installation of 'resolvconf' for name-resolution override
-    * Traffic forwarding (*router-like*)
-
-
-  * **Features**:
-    * Showing last logs if service re-/start fails
-    * Auto-Connect of dynamic peer
-
-----
-
 ## Contributing
 
 Feel free to:
@@ -90,45 +47,6 @@ Feel free to:
 * Start discussions
 
 * Open issues => after checking out the troubleshooting guide below!
-
-----
-
-## Info
-
-* **Note:** this role currently only supports debian-based systems
-
-
-* **Note:** Most of the role's functionality can be opted in or out.
-
-  For all available options - see the default-config located in [the main defaults-file](https://github.com/ansibleguy/infra_wireguard/blob/latest/defaults/main/1_main.yml)!
-
-
-* **Warning:** Not every setting/variable you provide will be checked for validity. Bad config might break the role!
-
-
-* **Warning:** Be aware that the WireGuard up-/down-scripts are executed as the **TUNNEL SERVICE** goes up; **NOT THE TUNNEL CONNECTION**.
-
-  You might need to take this in consideration when planning/configuring your routes and metrics!
-
-
-* **Info:** You should keep your topology names short. And try not to use special characters => they will get removed automatically (*except '_=+.-'*) so the key is a valid interface-name!
-
-
-* **Info:** Interfaces will get a prefix prepended: (*can be changed as provided*)
-  * single => wgs_
-  * star => wgx_
-  * mesh => wgm_
-  
-
-* **Info:** How to run tests is described [here](https://github.com/ansibleguy/infra_wireguard/blob/stable/molecule/default/Usage.md)
-
-
-* **Info:** The host-keys will be saved in the roles 'files' directory by default. 
-
-  This key-directory can be changed using the 'controller_key_store' variable!
-
-
-* **Info:** If you are using **OPNSense firewalls** - you can use the [ansibleguy.opnsense Ansible collection](https://github.com/ansibleguy/collection_opnsense/blob/stable/docs/use_wireguard.md) to manage those WireGuard tunnels.
 
 ----
 
@@ -199,6 +117,88 @@ If you only want to **provision one of your topologies** you can set the followi
 ```bash
 ansible-playbook -K -D -i inventory/hosts.yml playbook.yml -e only_topo=TOPOLOGY_KEY
 ```
+
+----
+
+## Functionality
+
+* **Package installation**
+  * WireGuard
+  * Resolvconf (_name resolution_)
+
+
+* **Configuration**
+  * Simplified configuration by the mapping of **topologies**
+  * **Supported topologies**:
+    * **[single](https://github.com/ansibleguy/infra_wireguard/blob/stable/ExampleSingle.md)** - simply connect two nodes
+    * **[star](https://github.com/ansibleguy/infra_wireguard/blob/stable/ExampleStar.md)** - multiple edge/branch nodes connect to one central hub
+    * **[mesh](https://github.com/ansibleguy/infra_wireguard/blob/stable/ExampleMesh.md)** - connect each of the peers to every other one
+  * **Keys**
+    * Generating public/private key-pairs for each host in a topology (*WG identifies peer by publicKey*)
+    * Keys are written to the controller for consistency
+  * **Routing**
+    * The routing is **up to you to manage**! You could enable the auto-added WG routes or add custom up-/down-scripts.
+
+
+  * **Default config**:
+    * Saving private-key in file
+    * Disabling route auto-adding (*anti-lockout & customization*)
+    * Enabled syslog-logging with instance-identifiers
+    * Restarting wg-service on changes
+ 
+
+  * **Default opt-ins**:
+    * Using PSK for additional security
+    * Purging of orphaned tunnels
+
+
+  * **Default opt-outs**:
+    * Installation of 'resolvconf' for name-resolution override
+    * Traffic forwarding (*router-like*)
+
+
+  * **Features**:
+    * Showing last logs if service re-/start fails
+    * Auto-Connect of dynamic peer
+
+----
+
+## Info
+
+* **Note:** this role currently only supports debian-based systems
+
+
+* **Note:** Most of the role's functionality can be opted in or out.
+
+  For all available options - see the default-config located in [the main defaults-file](https://github.com/ansibleguy/infra_wireguard/blob/latest/defaults/main/1_main.yml)!
+
+
+* **Warning:** Not every setting/variable you provide will be checked for validity. Bad config might break the role!
+
+
+* **Warning:** Be aware that the WireGuard up-/down-scripts are executed as the **TUNNEL SERVICE** goes up; **NOT THE TUNNEL CONNECTION**.
+
+  You might need to take this in consideration when planning/configuring your routes and metrics!
+
+
+* **Info:** You should keep your topology names short. And try not to use special characters => they will get removed automatically (*except '_=+.-'*) so the key is a valid interface-name!
+
+
+* **Info:** Interfaces will get a prefix prepended: (*can be changed as provided*)
+  * single => wgs_
+  * star => wgx_
+  * mesh => wgm_
+  
+
+* **Info:** How to run tests is described [here](https://github.com/ansibleguy/infra_wireguard/blob/stable/molecule/default/Usage.md)
+
+
+* **Info:** The host-keys will be saved in the roles 'files' directory by default. 
+
+  This key-directory can be changed using the 'controller_key_store' variable!
+
+
+* **Info:** If you are using **OPNSense firewalls** - you can use the [ansibleguy.opnsense Ansible collection](https://github.com/ansibleguy/collection_opnsense/blob/stable/docs/use_wireguard.md) to manage those WireGuard tunnels.
 
 ----
 
