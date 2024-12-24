@@ -8,6 +8,7 @@ class FilterModule(object):
         return {
             "safe_int_name": self.safe_int_name,
             "ensure_list": self.ensure_list,
+            "unique_list": self.unique_list,
             "flatten_hosts": self.flatten_hosts,
             "flatten_ints": self.flatten_ints,
             "one_center": self.one_center,
@@ -99,3 +100,7 @@ class FilterModule(object):
     @staticmethod
     def all_exist(data: list) -> bool:
         return all(result['stat']['exists'] for result in data)
+
+    @staticmethod
+    def unique_list(data: list) -> list:
+        return list(set(data))

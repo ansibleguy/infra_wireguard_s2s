@@ -1,5 +1,5 @@
 {# custom implementation of auto-added routes for topologies where a gateway is needed #}
-{% for net in wg_peer.AllowedIPs | ensure_list %}
+{% for net in wg_peer.AllowedIPs | ensure_list | unique_list %}
 {%   for gw in wg_peer.Address | ensure_list %}
 {%     if gw.split('/')[0] != net.split('/')[0] %}
 {%       if gw | ansible.utils.ipv4 and net | ansible.utils.ipv4 %}
